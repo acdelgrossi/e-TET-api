@@ -65,7 +65,7 @@ describe('RiskCalculatorService', () => {
       diabetesCount: 0,
       basicSanitation: true, // 0 points
       roomsCount: 4, // 4 individuals / 4 rooms = 1 => 2 points
-      };
+    };
 
     const result = await service.calculateFeatureRisk(
       'uuid-1',
