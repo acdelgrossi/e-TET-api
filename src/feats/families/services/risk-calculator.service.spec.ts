@@ -64,7 +64,7 @@ describe('RiskCalculatorService', () => {
       hypertensionCount: 1, // 1 point
       diabetesCount: 0,
       basicSanitation: true, // 0 points
-      roomsCount: 4, // 4 individuals / 4 rooms = 1 => 1 point
+      roomsCount: 4, // 4 individuals / 4 rooms = 1 => 2 points
     };
 
     const result = await service.calculateFeatureRisk(
@@ -73,8 +73,8 @@ describe('RiskCalculatorService', () => {
       'user-xyz',
     );
 
-    // total 3 + 2 + 1 + 1 = 7 (R2)
-    expect(result.finalScore).toBe(7);
+    // total 3 + 2 + 1 + 2 = 8 (R2)
+    expect(result.finalScore).toBe(8);
     expect(result.riskClass).toBe(FamilyRisk.R2);
     expect(mockRiskRepository.save).toHaveBeenCalled();
   });
@@ -94,7 +94,7 @@ describe('RiskCalculatorService', () => {
       hypertensionCount: 1, // 1 pt
       diabetesCount: 1, // 1 pt
       basicSanitation: true,
-      roomsCount: 1, // 1 individual / 1 room = 1 => 1 pt
+      roomsCount: 1, // 1 individual / 1 room = 1 => 2 pts
     };
 
     const result = await service.calculateFeatureRisk(
@@ -103,9 +103,9 @@ describe('RiskCalculatorService', () => {
       'user-xyz',
     );
 
-    // total 3 + 1 + 1 + 1 = 6 (R1)
-    expect(result.finalScore).toBe(6);
-    expect(result.riskClass).toBe(FamilyRisk.R1);
+    // total 3 + 1 + 1 + 2 = 7 (R2)
+    expect(result.finalScore).toBe(7);
+    expect(result.riskClass).toBe(FamilyRisk.R2);
   });
 
   it('should calculate ratio < 1 correctly (0 points)', async () => {
