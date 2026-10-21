@@ -67,15 +67,15 @@ export class RiskCalculatorService {
     // Weight *2
     const weight2 =
       (payload.drugAddictionCount || 0) * 2 +
-      (payload.unemployedCount || 0) * 2 +
-      (payload.illiterateCount || 0) * 2 +
-      (payload.under6MonthsCount || 0) * 2 +
-      (payload.over70YearsCount || 0) * 2;
+      (payload.unemployedCount || 0) * 2;
 
     // Weight *1
     const weight1 =
       (payload.hypertensionCount || 0) * 1 +
       (payload.diabetesCount || 0) * 1 +
+      (payload.illiterateCount || 0) * 1 +
+      (payload.under6MonthsCount || 0) * 1 +
+      (payload.over70YearsCount || 0) * 1 +
       (!payload.basicSanitation ? 3 : 0);
 
     // Room ratio
@@ -84,9 +84,9 @@ export class RiskCalculatorService {
     if (ratio < 1) {
       ratioPoints = 0;
     } else if (ratio === 1) {
-      ratioPoints = 1;
+      ratioPoints = 2;
     } else {
-      ratioPoints = 2; // ratio > 1
+      ratioPoints = 3; // ratio > 1
     }
 
     const finalScore = weight3 + weight2 + weight1 + ratioPoints;
